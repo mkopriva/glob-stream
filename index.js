@@ -11,6 +11,7 @@ var Minimatch = require('minimatch').Minimatch;
 var glob2base = require('glob2base');
 var path = require('path');
 var extend = require('extend');
+var chalk = require('chalk');
 
 var gs = {
   // creates a stream for a single glob or filter
@@ -34,9 +35,15 @@ var gs = {
 
     globber.on('error', stream.emit.bind(stream, 'error'));
     globber.once('end', function(){
-      if (opt.allowEmpty !== true && !found && globIsSingular(globber)) {
-        stream.emit('error', new Error('File not found with singular glob'));
-      }
+	  if (!found) {
+		if (!opt.allowEmpty && globIsSingular(globber)) {
+			stream.emit('error', new Error('File not found with singular glob "'+ourGlob+'"'));
+		} else if (opt.strict) {
+	  		stream.emit('error', new Error('File(s) not found with glob "'+ourGlob+'"'));
+	  	} else if (!opt.silent) {
+	  		console.warn(chalk.yellow('warning:')+' File(s) not found with glob "'+ourGlob+'"');
+	  	}
+	  }
 
       stream.end();
     });

@@ -8,13 +8,14 @@
     "index.js"
   ],
   "dependencies": {
+    "chalk": "^1.0.0",
     "extend": "^2.0.0",
     "glob": "^5.0.3",
+    "glob2base": "^0.0.12",
     "minimatch": "^2.0.1",
     "ordered-read-streams": "^0.2.0",
-    "glob2base": "^0.0.12",
-    "unique-stream": "^2.0.2",
-    "through2": "^0.6.1"
+    "through2": "^0.6.1",
+    "unique-stream": "^2.0.2"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
